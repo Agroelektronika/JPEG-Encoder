@@ -325,7 +325,7 @@ void procesing_YUV420(uchar Y_buff[], char U_buff[], char V_buff[], int x, int y
 /* Y decimation */
 /*******************************************************************************************************************************/
 void decimate_Y(uchar Y_buff[], int x, int y)
-{                   // izracunati prosecnu vrednost Y u 2x2 bloku i upisati tu vrednost za sve njih
+{                   // calculate average Y in 2x2 block and place that value to every Y in that block
 	uchar YY;
 	// TO DO
 

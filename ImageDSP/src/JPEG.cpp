@@ -186,7 +186,7 @@ void performJPEGEncoding(uchar Y_buff[], char U_buff[], char V_buff[], int xSize
     short* U_spectr_coeff = new short[(xSize/2)*(ySize/2)];
     short* V_spectr_coeff = new short[(xSize/2)*(ySize/2)];
 
-    int N = 8; // velicina bloka po jpeg standardu
+    int N = 8;
 
     for(int i = 0; i < N*N; i++){
         quantizationMatrixLuminance[i] = quantQuality(QuantLuminance[i], 93);
@@ -218,7 +218,7 @@ void performJPEGEncoding(uchar Y_buff[], char U_buff[], char V_buff[], int xSize
     int y = 0;
     int x = 0;
     bool imageProcessed = false;
-    while(!imageProcessed){ // pravljenje jpeg fajla, isprepletano umetanje 4Y na 1U,V blok
+    while(!imageProcessed){
         if(y >= ySize){
             imageProcessed = true;
             break;
@@ -251,18 +251,18 @@ void performJPEGEncoding(uchar Y_buff[], char U_buff[], char V_buff[], int xSize
             }
             for(int yy = 0; yy < N; yy++){
                 for(int xx = 0; xx < N; xx++){
-                    Y_block[yy*N+xx] = Y_spectr_coeff[(y+yy+dy)*xSize + x+xx+dx];  // upis 4 susedna bloka (16x16)
+                    Y_block[yy*N+xx] = Y_spectr_coeff[(y+yy+dy)*xSize + x+xx+dx];
                 }
             }
 
-            doZigZag<short>(Y_block, N);  // cik-cak transformacija za svaki
+            doZigZag<short>(Y_block, N);
             stream.writeBlockY(Y_block);
 
         }
-        x += 2*N; // pomeranje na sledeci par susednih 16x16 blokova
+        x += 2*N;
 
         for(int yy = 0; yy < N; yy++){
-            for(int xx = 0; xx < N; xx++){  // redom prolaz blok po blok U,V komponenti
+            for(int xx = 0; xx < N; xx++){
                 U_block[yy*N+xx] = U_spectr_coeff[(y_uv+yy)*xSize/2 + x_uv+xx];
                 V_block[yy*N+xx] = V_spectr_coeff[(y_uv+yy)*xSize/2 + x_uv+xx];
 
@@ -284,6 +284,7 @@ void performJPEGEncoding(uchar Y_buff[], char U_buff[], char V_buff[], int xSize
         Y_buff[i] = Y_buff_[i] + 128;
     }
 
+    // TO DO
     delete[] Y_buff_;
     delete[] Y_spectr_coeff;
     delete[] U_spectr_coeff;

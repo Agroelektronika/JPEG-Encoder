@@ -18,7 +18,7 @@ static char quantizationMatrix[64] =
 
 
 
-double alfa(int n, int N){  // part of the 2D DCT formula
+double alfa(int n, int N){  // deo formule 2D DCT
     if(n == 0){
         return sqrt(1.0 / (N));
     }
@@ -29,7 +29,7 @@ double alfa(int n, int N){  // part of the 2D DCT formula
 }
 
 void DCT(const char input[], int16_t output[], int N)
-{  // pozvana za svaki blok NxN, dobijanje spektralnih koeficijenata za svaki blok
+{  // za svaki blok NxN
 
     double* temp = new double[N*N];
     double* DCTCoefficients = new double[N*N];
@@ -100,7 +100,6 @@ void IDCT(const short input[], char output[], int N)
     {
         output[i] = floor(output[i]+0.5);
     }
-
 
 
 }
